@@ -19,16 +19,17 @@
 
 まずは、8x8のチェス盤を白、黒で交互に塗りつぶしてみる。
 
-| |1|2|3|4|5|6|7|8|
-|-|-|-|-|-|-|-|-|-|
-|1|白|黒|白|黒|白|黒|白|  |
-|2|黒|白|黒|白|黒|白|黒|白|
-|3|白|黒|白|黒|白|黒|白|黒|
-|4|黒|白|黒|白|黒|白|黒|白|
-|5|白|黒|白|黒|白|黒|白|黒|
-|6|黒|白|黒|白|黒|白|黒|白|
-|7|白|黒|白|黒|白|黒|白|黒|
-|8|  |白|黒|白|黒|白|黒|白|
+<table>
+  <tr> <td> </td> <td>1</td> <td>2</td> <td>3</td> <td>4</td> <td>5</td> <td>6</td> <td>7</td> <td>8</td> </tr>
+  <tr> <td>1</td> <td>白</td> <td>黒</td> <td>白</td> <td>黒</td> <td>白</td> <td>黒</td> <td>白</td> <td> </td> </tr>
+  <tr> <td>2</td> <td>黒</td> <td>白</td> <td>黒</td> <td>白</td> <td>黒</td> <td>白</td> <td>黒</td> <td>白</td> </tr>
+  <tr> <td>3</td> <td>白</td> <td>黒</td> <td>白</td> <td>黒</td> <td>白</td> <td>黒</td> <td>白</td> <td>黒</td> </tr>
+  <tr> <td>4</td> <td>黒</td> <td>白</td> <td>黒</td> <td>白</td> <td>黒</td> <td>白</td> <td>黒</td> <td>白</td> </tr>
+  <tr> <td>5</td> <td>白</td> <td>黒</td> <td>白</td> <td>黒</td> <td>白</td> <td>黒</td> <td>白</td> <td>黒</td> </tr>
+  <tr> <td>6</td> <td>黒</td> <td>白</td> <td>黒</td> <td>白</td> <td>黒</td> <td>白</td> <td>黒</td> <td>白</td> </tr>
+  <tr> <td>7</td> <td>白</td> <td>黒</td> <td>白</td> <td>黒</td> <td>白</td> <td>黒</td> <td>白</td> <td>黒</td> </tr>
+  <tr> <td>8</td> <td> </td> <td>白</td> <td>黒</td> <td>白</td> <td>黒</td> <td>白</td> <td>黒</td> <td>白</td> </tr>
+</table>
 
 とすると白が32マス、黒が30マスになる。
 
