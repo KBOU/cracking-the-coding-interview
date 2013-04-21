@@ -4,6 +4,8 @@ expect = chai.expect
 Line = require '../src/intersect'
 Calculation = require '../src/calculation'
 Half = require '../src/make_them_half'
+MostPoints = require '../src/line_with_most_points'
+kth = require '../src/kth_number'
 
 describe 'Line', ->
   describe '#intersect', ->
@@ -95,3 +97,24 @@ describe 'Half', ->
       expect(res[1].x).to.be.closeTo(9, 0.00000001)
       expect(res[1].y).to.be.closeTo(6.75, 0.00000001)
 
+describe 'MostPoints', ->
+  it 'should be 3', ->
+    main = new MostPoints([[1, 1], [2, 3], [3, 5]])
+    res = main.calc_max_count()
+    expect(res).to.be.equals(3)
+  it 'should be 3', ->
+    main = new MostPoints([[1, 1], [2, 3], [3, 5], [4, 4]])
+    res = main.calc_max_count()
+    expect(res).to.be.equals(3)
+  it 'should be 4', ->
+    main = new MostPoints([[1, 1], [2, 3], [3, 5], [-1, -3]])
+    res = main.calc_max_count()
+    expect(res).to.be.equals(4)
+
+describe 'get kth number', ->
+  it 'should be 7', ->
+    res = kth.getKthPrime(4)
+    expect(res).to.be.equals(7)
+  it 'should be 27', ->
+    res = kth.getKthPrime(9)
+    expect(res).to.be.equals(27)

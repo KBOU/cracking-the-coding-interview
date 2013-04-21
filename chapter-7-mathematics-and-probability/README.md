@@ -48,7 +48,10 @@
 
 `src/make_them_half.coffee`
 
-## 7-6. まだ
+## 7-6. 2次元平面にN個の点をランダムで散りばめた時にもっとも多い点を通る直線を探す
 
+`src/line_with_most_points.coffee`
 
-## 7-7. まだ
+## 7-7. 素因数が3, 5, 7だけの時にk番目の数を表示する
+
+`src/kth_number.coffee`
