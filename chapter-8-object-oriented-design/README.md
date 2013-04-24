@@ -258,3 +258,147 @@ Player: プレイヤー
 
 * ピースを選択する
 * ピースをはめ込む
+
+
+## 8-7. チャットサーバの設計と懸念点
+
+### やること
+
+<table>
+  <tr> <th>いつ</th> <td>-</td> </tr>
+  <tr> <th>どこで</th> <td>-</td> </tr>
+  <tr> <th>誰が</th> <td>友達同士</td> </tr>
+  <tr> <th>なにを</th> <td>メッセージ</td> </tr>
+  <tr> <th>なぜ</th> <td>コミュニケーションを取りたいから</td> </tr>
+  <tr> <th>どうする</th> <td>やりとりする</td> </tr>
+</table>
+
+### フロー
+
+1. ユーザー登録
+2. ログイン
+3. 友だちを探す
+4. 友達リクエストを送る
+5. チャットする友達を選択する(複数可)
+6. サーバにメッセージを送る
+7. サーバはメッセージを受信
+8. サーバは友達にメッセージを送る
+
+
+### 懸念点
+
+* オンラインかどうかどう確認するか? ping的なもの？
+* スケールした時にメモリ上の情報を他のサーバとどう共有するか。また共有必要があるか
+
+
+## 8-8. オセロを作る
+
+## 8-9. in-memoryファイルシステムの設計
+
+* ファイル／ディレクトリ／リンク
+* 権限rwx(ユーザーやグループはなし)
+* ツリー構造
+* ルート
+* ファイルメタ情報(ファイル名、コンテンツ、作成日、修正日、パーミッション)
+* 作成,編集,削除,情報表示するコマンド
+
+### 登場人物
+
+* FileSystem
+    * rootディレクトリ
+    * カレントディレクトリの参照
+    * Promptの初期化
+* Path
+    * 絶対パス相対パスの解釈
+* Entry
+    * ファイル名
+    * 作成日
+    * 修正日
+    * パーミッション
+* File extends Entry
+    * コンテンツ
+* Directory extends Entry
+    * Entryリスト
+* Link extends Entry
+    * 実体への参照
+* Prompt
+    * コマンドの入力受付
+    * コマンドのパース
+* Command
+* CdCommand extends Command
+    * Directory名を引数として受け付ける
+    * FileSystemのカレントディレクトリをDirectoryに変更する
+* LsCommand extends Command
+    * Entry名を引数として受け付ける
+    * Entryの情報を表示
+* CatCommand extends Command
+    * File名, Link名を引数として受け付ける
+    * Fileの内容を表示
+* TouchCommand extends Command
+    * File名を引数として受け付ける
+    * Fileを作成
+* MkdirCommand extends Command
+    * Directory名を引数として受け付ける
+    * Directoryを作成
+* LnCommand extends Command
+    * Link名とFile名もしくはDirectory名を引数として受け付ける
+    * Linkを作成
+* EchoToFileCommand extends Command
+    * 引数として文字列,File名を受け付ける
+    * Fileのコンテンツの編集
+* RmCommand extends Command
+    * 引数としてEntry名を受け付ける
+    * Entryの削除
+
+
+## 8-10. Hashtableの実装
+
+`src/hashtable.py`
+
+### やること
+
+とあるキーをハッシュ化してMapに格納。  
+キーが衝突した場合はlinkedlist形式でつるしていく。  
+
+挿入、更新、参照、削除ができればよいとする。
+
+### フロー
+
+挿入  
+
+1. key、valueを受け取る
+2. keyをhashing
+3. hashされたkeyがすでに存在するか確認
+4. hashの位置にkey, valueを格納する
+    1. hashが存在していない場合は、新しいlinkedlistを作り、key,valueを格納する
+    2. hashが存在している場合は、linkedlistに新しい要素を作成し、key,valueを格納する
+
+更新
+
+1. key、valueを受け取る
+2. keyをhashing
+3. hash位置にあるlinkedlistを取得
+4. 前から順番にkeyがあるか探してく。
+5. 発見したらvalueを上書き
+
+参照
+
+1. keyを受け取る
+2. keyをhashing
+3. hash位置にあるlinkedlistを取得
+4. 前から順番にkeyがあるか探してく。
+5. 発見したvalueを返す。
+
+削除
+
+1. keyを受け取る
+2. keyをhashing
+3. hash位置にあるlinkedlistを取得
+4. 前から順番にkeyがあるか探してく。
+5. 要素を削除して、前の要素に次の要素のポインタを渡す
+
+## LinkedList
+
+双方向LinkedListにする。  
+前の要素と次の要素とコンテンツを持つ。  
+先頭は前の要素はNone、末尾は次の要素がNone
