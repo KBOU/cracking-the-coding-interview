@@ -1,45 +1,38 @@
 # coding; utf-8
+import math
 
-from copy import deepcopy
+all_patterns = []
 
-BOARD = [[True] * 8] * 2
-ALL_POS = []
-def put_queens(board, index=0, queenpos=[]):
-    if index >= len(board):
-        return queenpos
+def add_columns(row, columns):
+    if row == len(columns):
+        all_patterns.append(columns[:])
 
-    for i, cell in enumerate(board[index]):
-        if cell:
-            clone_board = deepcopy(board)
-            pos = [i]
-            for j in range(index + 1, len(clone_board)):
-                clone_board[j][i] = False
-                if i + j - index < len(clone_board[0]):
-                    clone_board[j][i+j-index] = False
-                if i - j - index >= 0:
-                    clone_board[j][i-j-index] = False
+    for col in range(len(columns)):
+        if check_valid(row, col, columns):
+            columns[row] = col
+            add_columns(row + 1, columns)
 
-            if len(queenpos) > 0:
-                pos.extend(queenpos)
-            put_queens(clone_board, index + 1, pos)
-
-            if len(pos) == len(board):
-                ALL_POS.append(pos)
+def check_valid(row, col, columns):
+    for r in range(row):
+        col2 = columns[r]
+        if col2 == col:
+            return False
+        if math.fabs(col2 - col) == math.fabs(row - r):
+            return False
+    return True
 
 
 if __name__ == "__main__":
-    put_queens(BOARD)
-
-    for i, pos in enumerate(ALL_POS):
-        pos.reverse()
-        print "CASE %d" % i
-        print " - " * len(BOARD[0])
-        for y in range(len(BOARD)):
-            for x in range(len(BOARD[0])):
+    add_columns(0, [0] * 8)
+    for k, pat in enumerate(all_patterns):
+        print "PATTERN %d" % k
+        for i in range(8):
+            for j in range(8):
                 ch = " "
-                if pos[y] == x:
+                if pat[i] == j:
                     ch = "Q"
                 print "|%s" % ch,
             print "|"
-            print " - " * len(BOARD[0])
+            print " - " * 8
+
         print
