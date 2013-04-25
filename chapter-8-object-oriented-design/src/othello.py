@@ -96,7 +96,7 @@ class Board(object):
     def count(cls, white):
         cnt = 0
         for piece in cls.__board:
-            if piece is not None and piece.white is True:
+            if piece is not None and piece.white is white:
                 cnt += 1
         return cnt
 
@@ -207,7 +207,7 @@ class Board(object):
             xi += 1
             yi += 1
         for xi in range(x + 1, start):
-            yi = y - (x + 1 - xi)
+            yi = y - (x - xi)
             cls.__set_candidate(xi, yi)
 
     @classmethod
@@ -236,7 +236,7 @@ class Board(object):
             xi += 1
             yi -= 1
         for xi in range(x + 1, start):
-            yi = y + (x + 1 - xi)
+            yi = y + (x - xi)
             cls.__set_candidate(xi, yi)
 
     @classmethod
