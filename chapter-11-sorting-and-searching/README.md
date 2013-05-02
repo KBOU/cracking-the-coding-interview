@@ -126,3 +126,45 @@
 を繰り返す。
 
 `src/sperse_search.py`
+
+## 11-6. MxNのマトリックスをバイナリサーチ
+
+条件:
+
+* A[i][j+1] &ge; A[i][j]
+* A[i+1][j] &ge; A[i][j]
+
+の条件を満たすMxNマトリックスをサーチ。
+
+### 方針
+
+対角線上をサーチしていき、A[i][j] &lt; x (探している数) &lt; A[i+1][j+1]、  
+となったら対角線で区切った左下のボックスと右上のボックスをまたバイナリサーチしていく。
+
+こんなイメージ。  
+x = 8  
+MxNマトリックス
+
+<table>
+  <tr> <td>1</td> <td>2</td> <td>3</td> <td>4</td> <td>5</td> </tr>
+  <tr> <td>2</td> <td>4</td> <td>6</td> <td>8</td> <td>10</td> </tr>
+  <tr> <td>3</td> <td>6</td> <td>9</td> <td>12</td> <td>15</td> </tr>
+  <tr> <td>4</td> <td>8</td> <td>12</td> <td>16</td> <td>20</td> </tr>
+</table>
+
+* 1回目: x &gt; A[1][1] = 4
+* 2回目: x &lt; A[2][2] = 9
+* 次は左下の
+<table>
+  <tr> <td>3</td> <td>6</td> </tr>
+  <tr> <td>4</td> <td>8</td> </tr>
+</table>
+と右上の
+<table>
+  <tr> <td>4</td> <td>5</td> </tr>
+  <tr> <td>8</td> <td>10</td> </tr>
+</table>
+の2つのボックスからさーちする。
+
+
+`src/matrix_search.py`
