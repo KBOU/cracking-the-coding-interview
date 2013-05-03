@@ -29,7 +29,6 @@ void reverse(char *str) {
 }
 
 int main(int argc, char **argv) {
-  char *str = "hogehgoe";
+  char str[] = "hogehgoe";
   reverse(str);
- // printf("%s=%s\n", str, *reversed);
 }
