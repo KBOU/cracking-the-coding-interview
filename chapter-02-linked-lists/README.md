@@ -85,3 +85,52 @@ Runnerを2つ回す。
 6. 繰り上がりLinkedListの値が全部0になるまで足し算する。
 
 `src/addition.c`
+
+## 2-6. 循環リストの循環の始点を探せ！
+
+STEP=1のRunnerとSTEP=2のRunnerを回す。  
+そうすると、循環していれば必ずRunner1とRunner2は循環リスト上の何処かのノードで出会う。
+なぜなら、Runner1とRunner2は1 iterationごとに1つずつ差がでかくなるので。
+
+例えば、ABCDEの5つの要素があり、Cが循環の始点の場合、
+
+<table>
+  <tr> <td>ITERATE</td> <td>0</td> <td>1</td> <td>2</td> <td>3</td> <td>4</td> <td>5</td> <td>6</td> <td>7</td> </tr>
+  <tr> <td>STEP=1</td> <td>A</td> <td>B</td> <td>C</td> <td>D</td> <td>E</td> <td>C</td> <td>D</td> <td>E</td> </tr>
+  <tr> <td>STEP=2</td> <td>A</td> <td>C</td> <td>E</td> <td>D</td> <td>C</td> <td>E</td> <td>D</td> <td>C</td> </tr>
+</table>
+
+3回目のiterationと6回目のiterationでであう。  
+なので、循環部の長さは3であることがわかる。(2回目に同じ要素にあたった時に判断しないとダメ)
+
+ここまでわかるとありうる可能性はBCD, CDE, DEFのいずれかが循環部分を構成しているということ。  
+あとはリスト全体の長さがわかれば循環の始点がわかる。
+
+たとえば、BCDである可能性を調べるためには、STEP=1のRunnerとSTEP=4のRunnerを1回iterateすれば良い。  
+これでNode Bで出会えば、循環の始点はBであることがわかる。
+
+### 方針
+
+これを一般化(?)すると、
+
+1. Runnerを2つイテレートする。片方はSTEP=1, もう一方はSTEP=2
+2. 2回出会うまでイテレートし、1回目のindex(i1)と2回目のindex(i2)を記録する。
+3. Runnerを先頭に戻す。
+4. STEP=1とSTEP=i1+1で1回イテレートする。出会えばそこが始点。
+5. STEP=1とSTEP=i1+2で1回イテレートする。出会えばそこが始点。。。というのを出会うまでSTEP=i2まで繰り返す。
+
+
+`src/circular.c`
+
+## 2-7. Linkedlistが回文であることを確認する。
+
+条件：
+
+* 単方向リスト
+* データは数値
+
+### 方針
+
+逆順リストをつくって比較
+
+`src/palindrome.c`
