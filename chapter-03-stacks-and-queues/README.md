@@ -51,3 +51,39 @@ popしたときにminと同じ値だったらminスタックもpopする。
 ### 追記
 
 再帰で簡単にできる。というよりそちらにすべき。
+
+## 3-5. stackを2つ使ってQueueを作る
+
+### 方針
+
+* stack1, stack2を作る
+* データ入力のときはstack1にデータを突っ込んでく。この時stack2がからでなければ、stack2の要素をすべてpopしてstack1にpushする
+* データ出力のときはstack1からstack2に全部データを突っ込んで、stack2からpopする。
+
+`src/queue_2_stacks.py`
+
+## 3-6. 大きい順にソートされたstackを作る
+
+### 方針
+
+1つ余分にStackを作り、bufferとして使う。  
+要素の挿入があった時に毎回stackのtopと比較を行い、    
+新しい要素の方が小さかったら、stackをpopしてbufferにpopしたやつを入れる。  
+ということを繰り返す。
+
+`src/sorted_stack.py`
+
+
+## 3-7. 犬猫ハウス
+
+* FIFO
+* 犬FIFO
+* 猫FIFO
+
+### 方針
+
+LinkedListで犬猫を管理。  
+犬FIFOが選択された場合は、
+listからinstanceが犬のものを選び、linkedlistから削除
+
+`src/animal_shelter.py`
